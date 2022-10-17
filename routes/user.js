@@ -1,6 +1,5 @@
 const router = require("express").Router();
 const User = require("../models/User");
-const verify = require("../verifyToken");
 //UPDATE
 
 router.put("/:id" ,async (req, res) => {
@@ -46,12 +45,12 @@ router.get("/find/:id", async (req, res) => {
   }
 });
 router.get("/random", async (req, res) => {
-  let movie;
+  let user;
   try {
-      movie = await User.aggregate([
+      user = await User.aggregate([
         { $sample: { size: 1 } },
       ]);
-    res.status(200).json(movie[0]);
+    res.status(200).json(user[0]);
   } catch (err) {
     res.status(500).json(err);
   }
